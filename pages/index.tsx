@@ -1,37 +1,31 @@
-import { useEffect, useState } from 'react'
-import { supabase } from '../lib/supabaseClient'
-
 export default function Home() {
-  const [spots, setSpots] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    async function load() {
-      const { data, error } = await supabase
-        .from('spots')
-        .select('*')
-
-      if (!error) setSpots(data || [])
-      setLoading(false)
-    }
-    load()
-  }, [])
-
   return (
-    <main style={{ padding: 20, fontFamily: 'sans-serif' }}>
-      <h1>Husky Parking Watch</h1>
-
-      {loading && <p>loading…</p>}
-
-      {!loading && spots.length === 0 && <p>no spots yet</p>}
-
-      {!loading && spots.length > 0 && (
-        <ul>
-          {spots.map(s => (
-            <li key={s.id}>{s.name}</li>
-          ))}
-        </ul>
-      )}
+    <main style={{
+      minHeight: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
+      background: "#f6f8fa",
+      color: "#0b2545",
+      padding: 24
+    }}>
+      <div style={{
+        textAlign: "center",
+        borderRadius: 12,
+        padding: 32,
+        boxShadow: "0 6px 22px rgba(6, 15, 33, 0.08)",
+        background: "white",
+        maxWidth: 720
+      }}>
+        <h1 style={{ margin: 0, fontSize: 32 }}>Husky Parking Watch</h1>
+        <p style={{ marginTop: 8, color: "#475569" }}>
+          Under construction — we’ll be back soon with live campus parking conditions.
+        </p>
+        <p style={{ marginTop: 18, fontSize: 14, color: "#64748b" }}>
+          Tip: If you want this to show a map or let users submit sightings, say the word and I’ll add it next.
+        </p>
+      </div>
     </main>
   )
 }
